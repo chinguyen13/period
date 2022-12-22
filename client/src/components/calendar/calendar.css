@@ -1,0 +1,37 @@
+.ant-picker-calendar-mode-switch{
+  display:none !important;
+}
+.ant-picker-calendar-header{
+  padding: 10px 20px !important;
+}
+
+.ant-picker-cell-disabled{
+  background-color: #dddddd !important;
+}
+
+.customCell{
+  position: static;
+  width: auto;
+  height: 100px;
+  overflow-y: auto;
+  color: black;
+  line-height: 1.5;
+  text-align: start;
+  margin: 0px 2px;
+
+}
+
+.period{
+  background-image: url('../../images/strawberry.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.weekendCell{
+  background-color: #fffacd;
+}
+
+.futureCell:hover{
+  background-color: #f1f1f1;
+}

@@ -1,0 +1,22 @@
+.headerStyle{
+  background-color: #1677FF !important;
+}
+
+.menu-nav{
+  background-color: #1677FF !important;
+  font-weight: bold;
+  color: white;
+}
+
+.ant-menu-item:hover{
+  color: #C1C8E4 !important;
+}
+
+.ant-menu-item-selected{
+  background-color: white !important;
+  border-bottom: none !important;
+}
+
+.ant-menu-item::after{
+  border-bottom: none !important;
+}

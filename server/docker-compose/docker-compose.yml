@@ -1,0 +1,11 @@
+version: "4.12"
+services:
+  my-sql:
+    image: mysql:8.0
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: period
+    volumes:
+      - ../data/mysql:/var/lib/mysql
