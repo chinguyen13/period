@@ -22,7 +22,20 @@
 }
 
 .period{
+  background-color: #FBAA8F;
   background-image: url('../../images/strawberry.png');
+  background-size: 100px 100px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.menstruation{
+  background-color: #FBAA8F;
+}
+
+.ovulation{
+  background-color: #b3ffad;
+  background-image: url('../../images/egg.png');
   background-size: 100px 100px;
   background-repeat: no-repeat;
   background-position: center;
