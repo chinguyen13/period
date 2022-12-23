@@ -59,8 +59,18 @@ const CalendarPage: React.FC = () => {
     })
   }
 
+  const deletePeriod = (value:any ) => {
+    setIsLoading(true);
+    Axios.delete('/period', {params : {month: dayjs(value).month() + 1}}).then(() => {
+      Axios.get('/period').then(res => {
+        setIsLoading(false);  
+        getDate(res.data); 
+      })
+    })
+  }
+
   return(
-    <CalendarComponent cycleStart={cycleStart} cycleEnd={cycleEnd} menstruation={menstruation} ovulation={ovulation} isLoading={isLoading} currentDate={currentDate} addPeriod={addPeriodAction}/>
+    <CalendarComponent cycleStart={cycleStart} deletePeriod={deletePeriod} cycleEnd={cycleEnd} menstruation={menstruation} ovulation={ovulation} isLoading={isLoading} currentDate={currentDate} addPeriod={addPeriodAction}/>
   );
 }
 

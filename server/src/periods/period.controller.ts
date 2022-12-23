@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from "@nestjs/common";
+import { Controller, Get, Post, Body, Delete, Param } from "@nestjs/common";
 import { PeriodDto } from "./period.dto";
 import { PeriodService } from "./period.service";
 
@@ -16,6 +16,11 @@ export class PeriodController{
   @Post()
   addPeriod(@Body() period: PeriodDto): Promise<PeriodDto>{
     return this.periodService.save(period);
+  }
+
+  @Delete()
+  deletePeriod(@Param('month') month: number){
+    return this.periodService.delete(month);
   }
 
 }

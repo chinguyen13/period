@@ -11,6 +11,7 @@ interface Data{
 
 interface Props{
   addPeriod: any;
+  deletePeriod: any;
   currentDate: Dayjs;
   isLoading: boolean;
   cycleStart: string[];
@@ -60,6 +61,10 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
     return;
   }
 
+  const deleteComfirmation = () => {
+    props.deletePeriod(curValue);
+  }
+
   return(
     <div style={{padding: '10px 20px'}}>
       {props.isLoading ? <Spin style={{position:'fixed', top:'50%', left:'50%'}}/> : null}
@@ -72,6 +77,15 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
         }} 
         dateFullCellRender={customCell}
       />
+       <Popconfirm
+        placement="topLeft"
+        title={"Are you sure to DELETE this month?"}
+        onConfirm={deleteComfirmation}
+        okText="Yes"
+        cancelText="No"
+      >
+        <Button style={{ float:'left', marginBottom: 10 }} type="primary" >Delete This Month</Button>
+      </Popconfirm>
         <Popconfirm
         placement="topRight"
         title={"Are you sure to add period?"}

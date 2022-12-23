@@ -23,4 +23,11 @@ export class PeriodService{
       }
     });
   }
+
+  async delete(month: number){
+    return await this.periodRepository.createQueryBuilder()
+    .delete()
+    .where(`start_date LIKE "%/${month.toString().padStart(2,"0")}/%"`)
+    .execute();
+  }
 }
