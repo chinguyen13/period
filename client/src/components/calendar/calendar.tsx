@@ -10,40 +10,44 @@ interface Data{
 }
 
 interface Props{
-  data: Data[];
   addPeriod: any;
   currentDate: Dayjs;
   isLoading: boolean;
-  setIsLoading: any;
+  cycleStart: string[];
+  cycleEnd: string[];
+  menstruation: string[];
+  ovulation: string[];
 }
-let cycleStart: Date;
 
 const currentDate = dayjs(new Date());
 
 const CalendarComponent: React.FC<Props> = (props: Props) => {
   const [curValue, setCurValue] = React.useState(props.currentDate);
-  const getListData = (value: Dayjs) => {
-    props.data.forEach(item => {  
-      if(value.isSame(dayjs(item.start_date), 'dates'))
+
+  const checkInPeriod = (formatted: string) => {
+    for(let i = 0; i < props.cycleStart.length ; i++)
+    {
+      if(props.cycleStart[i] < formatted && props.cycleEnd[i] >= formatted)
       {
-        cycleStart = new Date(value.toString());
-        return;
+        return true;
       }
-    });
-    return;
-  }
+    }
+    return false;
+  } 
 
   const customCell = (value: Dayjs) => {
-    getListData(value);
+    const formatted = value.format('YYYY/MM/DD');
+    
     return(
       <div
         className={
           "customCell "
-          + (cycleStart && value.isSame(cycleStart, 'dates') ? "period " : '')
+          + (props.cycleStart.includes(formatted) ? "period " : '')
           // + (value.day() % 6 === 0 ? "weekendCell " : "" )
-          + (value.isSame(currentDate) || value.isAfter(currentDate) ? "futureCell " : "")
-          + (cycleStart && value.isAfter(cycleStart, 'dates') && value.isBefore(dayjs(new Date().setDate(cycleStart.getDate() + 6)), 'dates') ? "menstruation " : "")
-          + (cycleStart && value.isAfter(dayjs(new Date().setDate(cycleStart.getDate() + 10)), 'dates') && value.isBefore(dayjs(new Date().setDate(cycleStart.getDate() + 16)), 'dates') ? "ovulation" : "")
+          // + (value.isSame(currentDate) || value.isAfter(currentDate) ? "futureCell " : "")
+          + (props.menstruation.includes(formatted)  ? "menstruation " : "")
+          + (props.ovulation.includes(formatted) ? "ovulation " : "")
+          + (checkInPeriod(formatted) ? "inPeriod " : "")
         }
         style={{ backgroundColor: value.isSame(curValue) ? '#E6F4FF' : '', borderTop: value.isSame(currentDate) ? "2px solid #1677ff" : "2px solid #DDD" }}>
         <p style={{textAlign: "right", padding: "10px 10px", color: value.isSame(curValue) ?  "#1677FF" : value.month() !== curValue.month() ? "#00000040" : "#000000"}}>{value.date()}</p>
@@ -58,11 +62,11 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
 
   return(
     <div style={{padding: '10px 20px'}}>
-      {props.isLoading ? <Spin/> : null}
+      {props.isLoading ? <Spin style={{position:'fixed', top:'50%', left:'50%'}}/> : null}
       <Calendar 
         validRange={[dayjs("2022-11-27"), dayjs("2023-12-31")]}
         value={curValue}
-        style={{ margin: '10px 0px' }}
+        style={{ margin: '10px 0px'}}
         onSelect={(date) => {
           setCurValue(date.isBefore(currentDate) ? dayjs(currentDate) : date);
         }} 

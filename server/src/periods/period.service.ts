@@ -17,6 +17,10 @@ export class PeriodService{
   }
 
   async find(): Promise<PeriodDto[]>{
-    return await this.periodRepository.find();
+    return await this.periodRepository.find({
+      order: {
+        start_date: 'ASC'
+      }
+    });
   }
 }

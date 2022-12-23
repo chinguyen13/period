@@ -22,7 +22,7 @@
 }
 
 .period{
-  background-color: #FBAA8F;
+  background-color: #FBAA8F !important;
   background-image: url('../../images/strawberry.png');
   background-size: 100px 100px;
   background-repeat: no-repeat;
@@ -30,15 +30,19 @@
 }
 
 .menstruation{
-  background-color: #FBAA8F;
+  background-color: #FBAA8F !important;
 }
 
 .ovulation{
-  background-color: #b3ffad;
+  background-color: #b3ffad !important;
   background-image: url('../../images/egg.png');
   background-size: 100px 100px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.inPeriod{
+  background-color: #f8ffb8;
 }
 
 .weekendCell{

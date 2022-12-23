@@ -9,32 +9,59 @@ interface Data{
 }
 
 const currentDate = dayjs(new Date());
+let cycleStart: string[] = [];
+let menstruation: string[] = [];
+let ovulation: string[] = [];
+let cycleEnd: string[] = [];
 
 const CalendarPage: React.FC = () => {
-  const [data, setData] = React.useState<Data[]>([]);
   const [isLoading, setIsLoading] = React.useState(false);
   
+  const getDay = (start: string ,day: number) => {
+    return new Date(new Date(start).getTime() + day*24*60*60*1000).toLocaleDateString('en-ZA');
+  }
+
+  const getDate = (data: any) => {
+    cycleStart = [];
+    menstruation = [];
+    ovulation = [];
+    cycleEnd = [];
+    data.forEach((item: any) => {
+      cycleStart.push(item.start_date);
+      for(let i = 1; i< 6; i++)
+      {
+        menstruation.push(getDay(item.start_date, i))
+      }
+      for(let i = 11; i < 16; i++)
+      {
+        ovulation.push(getDay(item.start_date, i));
+      }
+      cycleEnd.push(getDay(item.start_date, 28));
+    });
+  }
+
   React.useEffect(() => {
     setIsLoading(true);
     Axios.get('/period').then(res => {
-      setData(res.data);
-      setIsLoading(false);
+      console.log(res.data);
+      setIsLoading(false);   
+      getDate(res.data);     
     })
   }, []);
 
   const addPeriodAction = (value : any) => {
     setIsLoading(true);
-    Axios.post('/period', { "start_date": value }).then(() => {
+    Axios.post('/period', { "start_date": dayjs(value).format("YYYY/MM/DD") }).then(() => {
       Axios.get('/period').then(res => {
-        setData(res.data);
-        setIsLoading(false);
+        setIsLoading(false);  
+        getDate(res.data); 
       })
     })
   }
 
   return(
-    <CalendarComponent data={data} setIsLoading={setIsLoading} isLoading={isLoading} currentDate={currentDate} addPeriod={addPeriodAction}/>
+    <CalendarComponent cycleStart={cycleStart} cycleEnd={cycleEnd} menstruation={menstruation} ovulation={ovulation} isLoading={isLoading} currentDate={currentDate} addPeriod={addPeriodAction}/>
   );
 }
 
-export default CalendarPage
+export default CalendarPage;
