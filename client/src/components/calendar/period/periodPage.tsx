@@ -1,12 +1,7 @@
 import React from "react";
-import { Axios } from "../..";
-import CalendarComponent from "./calendar";
+import { Axios } from "../../..";
 import dayjs from 'dayjs';
-
-interface Data{
-  id: number;
-  start_date: string;
-}
+import PeriodCalendar from "./calendarPeriod";
 
 const currentDate = dayjs(new Date());
 let cycleStart: string[] = [];
@@ -14,7 +9,7 @@ let menstruation: string[] = [];
 let ovulation: string[] = [];
 let cycleEnd: string[] = [];
 
-const CalendarPage: React.FC = () => {
+const PeriodPage: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   
   const getDay = (start: string ,day: number) => {
@@ -43,7 +38,6 @@ const CalendarPage: React.FC = () => {
   React.useEffect(() => {
     setIsLoading(true);
     Axios.get('/period').then(res => {
-      console.log(res.data);
       setIsLoading(false);   
       getDate(res.data);     
     })
@@ -70,8 +64,8 @@ const CalendarPage: React.FC = () => {
   }
 
   return(
-    <CalendarComponent cycleStart={cycleStart} deletePeriod={deletePeriod} cycleEnd={cycleEnd} menstruation={menstruation} ovulation={ovulation} isLoading={isLoading} currentDate={currentDate} addPeriod={addPeriodAction}/>
+    <PeriodCalendar cycleStart={cycleStart} deletePeriod={deletePeriod} cycleEnd={cycleEnd} menstruation={menstruation} ovulation={ovulation} isLoading={isLoading} currentDate={currentDate} addPeriod={addPeriodAction}/>
   );
 }
 
-export default CalendarPage;
+export default PeriodPage;

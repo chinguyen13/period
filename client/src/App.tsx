@@ -4,7 +4,7 @@ import HeaderComponent from './components/header/header';
 import { Layout } from 'antd';
 import FooterComponent from './components/footer/footer';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import CalendarPage from './components/calendar/page';
+import PeriodPage from './components/calendar/period/periodPage';
 
 function App() {
   const Content = Layout.Content;
@@ -14,7 +14,7 @@ function App() {
       <Content style={{ minHeight: 'calc(100vh - 128px)'}}>
         <Router>
           <Routes>    
-            <Route path="" element={<CalendarPage />}/>
+            <Route path="" element={<PeriodPage />}/>
           </Routes>
         </Router>
       </Content>

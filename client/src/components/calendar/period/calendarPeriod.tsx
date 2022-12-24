@@ -4,10 +4,6 @@ import type { Dayjs } from 'dayjs';
 import "./calendar.css";
 import dayjs from 'dayjs';
 
-interface Data{
-  id: number;
-  start_date: string;
-}
 
 interface Props{
   addPeriod: any;
@@ -38,7 +34,6 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
 
   const customCell = (value: Dayjs) => {
     const formatted = value.format('YYYY/MM/DD');
-    
     return(
       <div
         className={
@@ -50,7 +45,7 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
           + (props.ovulation.includes(formatted) ? "ovulation " : "")
           + (checkInPeriod(formatted) ? "inPeriod " : "")
         }
-        style={{ backgroundColor: value.isSame(curValue) ? '#E6F4FF' : '', borderTop: value.isSame(currentDate) ? "2px solid #1677ff" : "2px solid #DDD" }}>
+        style={{ backgroundColor: value.isSame(curValue) ? '#E6F4FF' : '',  borderBottom: value.isSame(curValue) ? '1px solid #E6F4FF' : '', borderTop: value.isSame(currentDate) ? "2px solid #1677ff" : "2px solid #DDD" }}>
         <p style={{textAlign: "right", padding: "10px 10px", color: value.isSame(curValue) ?  "#1677FF" : value.month() !== curValue.month() ? "#00000040" : "#000000"}}>{value.date()}</p>
       </div>
     )
@@ -69,11 +64,11 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
     <div style={{padding: '10px 20px'}}>
       {props.isLoading ? <Spin style={{position:'fixed', top:'50%', left:'50%'}}/> : null}
       <Calendar 
-        validRange={[dayjs("2022-11-27"), dayjs("2023-12-31")]}
+        validRange={[dayjs("2022-11-01"), dayjs("2023-12-31")]}
         value={curValue}
         style={{ margin: '10px 0px'}}
         onSelect={(date) => {
-          setCurValue(date.isBefore(currentDate) ? dayjs(currentDate) : date);
+          setCurValue(date);
         }} 
         dateFullCellRender={customCell}
       />
