@@ -4,6 +4,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { PeriodEntity } from "./periods/period.entity";
 import { PeriodModule } from "./periods/period.module";
+import { WorkoutModule } from "./workouts/workout.module";
 // require('dotenv').config();
 @Module({
   imports: [ TypeOrmModule.forRoot({
@@ -13,14 +14,14 @@ import { PeriodModule } from "./periods/period.module";
     username: "nguyen",
     password: "Nguyenpro133@",
     database: "period",
-    entities: [PeriodEntity],
+    entities: [PeriodEntity, WorkoutModule],
     synchronize: false,
   }),],
 })
 export class DatabaseModule{};
 
 @Module({
-  imports: [DatabaseModule, PeriodModule],
+  imports: [DatabaseModule, PeriodModule, WorkoutModule],
   controllers: [AppController],
   providers: [AppService],
 })
