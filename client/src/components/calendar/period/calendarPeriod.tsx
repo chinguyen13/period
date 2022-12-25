@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Calendar, Popconfirm, Spin } from "antd";
 import type { Dayjs } from 'dayjs';
-import "./calendar.css";
+import "./../calendar.css";
 import dayjs from 'dayjs';
 
 
@@ -64,7 +64,7 @@ const CalendarComponent: React.FC<Props> = (props: Props) => {
     <div style={{padding: '10px 20px'}}>
       {props.isLoading ? <Spin style={{position:'fixed', top:'50%', left:'50%'}}/> : null}
       <Calendar 
-        validRange={[dayjs("2022-11-01"), dayjs("2023-12-31")]}
+        validRange={[dayjs("2022-11-01"), dayjs(new Date(new Date().setMonth(new Date(props.currentDate.toString()).getMonth() + 1)))]}
         value={curValue}
         style={{ margin: '10px 0px'}}
         onSelect={(date) => {

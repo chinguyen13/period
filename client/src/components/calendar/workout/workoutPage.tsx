@@ -5,7 +5,7 @@ import WorkoutCalendar from "./calendarWorkout";
 
 const currentDate = dayjs(new Date());
 
-const PeriodPage: React.FC = () => {
+const WorkoutPage: React.FC = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [data, setData] = React.useState([]);
 
@@ -22,4 +22,4 @@ const PeriodPage: React.FC = () => {
   );
 }
 
-export default PeriodPage;
+export default WorkoutPage;
