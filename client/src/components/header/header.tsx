@@ -1,30 +1,51 @@
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, MenuProps } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import './header.css';
 
 const Header = Layout.Header;
-
+const items: MenuProps['items'] = [
+  {
+    label: 'Period',
+    key: '1'
+  },
+  {
+    label: 'Workout',
+    key: '2'
+  }
+]
 const HeaderComponent: React.FC = () => {
+  const navigate = useNavigate()
+  const [curMenu, serCurMenu] = React.useState('1');
+
+  const onClickMenu = (value: any) => {
+    if(value.key === curMenu)
+    {
+      return;
+    }
+    switch(value.key){
+      case '1': 
+        navigate('/');
+        break;
+      case '2':
+        navigate('/workout');
+        break;
+      default:
+        break;
+    }
+    serCurMenu(value.key);
+
+  }
+
   return(
     <Header className='headerStyle' style={{ top: 0, zIndex: 1, width: '100%'}}>
-      <div
-          style={{
-            float: 'left',
-            width: 120,
-            height: 31,
-            margin: '16px 24px 16px 0',
-          }}
-        />
-        {/* <Menu
+        <Menu
           className='menu-nav'
           mode="horizontal"
-          
-          defaultSelectedKeys={['2']}
-          items={new Array(3).fill(null).map((_, index) => ({
-            key: String(index + 1),
-            label: `nav ${index + 1}`,
-          }))}
-        /> */}
+          onClick={e => onClickMenu(e)}
+          defaultSelectedKeys={['1']}
+          items={items}
+        />
     </Header>
   )
 }

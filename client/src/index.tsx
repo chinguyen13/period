@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 
 export const Axios = axios.create({
-  baseURL: 'http://3.1.213.43/api'
+  baseURL: 'http://localhost:3006/'
 });
 
 root.render(

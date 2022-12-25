@@ -3,11 +3,13 @@ import { Calendar, Spin } from "antd";
 import type { Dayjs } from 'dayjs';
 import "./../calendar.css";
 import dayjs from 'dayjs';
+import WorkoutForm from "./workoutForm";
 
 interface Props{
   data: any;
   currentDate: Dayjs;
   isLoading: boolean;
+  onFinish: any;
 }
 
 const currentDate = dayjs(new Date());
@@ -16,17 +18,17 @@ const WorkoutCalendar: React.FC<Props> = (props: Props) => {
   const [curValue, setCurValue] = React.useState(props.currentDate);
 
   const getData = (value: Dayjs) => {
-    let data: string = '';
-    const index = props.data.findIndex((e: any) => e.currentDate === value.format("YYYY/MM/DD"));
+    let data;
+    const index = props.data.findIndex((e: any) => e.start_date === value.format("YYYY/MM/DD"));
     if(index >= -1 )
     {
-      data = props.data.message;
+      data = props.data[index];
     }
     return data;
   }
 
   const customCell = (value: Dayjs) => {
-    const message = getData(value);
+    const displayData = getData(value);
     const formatted = value.format('YYYY/MM/DD');
     return(
       <div
@@ -36,9 +38,10 @@ const WorkoutCalendar: React.FC<Props> = (props: Props) => {
         }
         style={{ backgroundColor: value.isSame(curValue) ? '#E6F4FF' : '',  borderBottom: value.isSame(curValue) ? '1px solid #E6F4FF' : '', borderTop: value.isSame(currentDate) ? "2px solid #1677ff" : "2px solid #DDD" }}>
         <p style={{textAlign: "right", padding: "10px 10px", color: value.isSame(curValue) ?  "#1677FF" : value.month() !== curValue.month() ? "#00000040" : "#000000"}}>{value.date()}</p>
-        <div>
-          <p>{message}</p>
-        </div>
+        {displayData?.workout ? "workout " : ""}
+        {displayData?.breakfast ? "breakfast " : ""}
+        {displayData?.lunch ? "lunch " : ""}
+        {displayData?.dinner ? "dinner " : ""}
       </div>
     )
   }
@@ -55,6 +58,7 @@ const WorkoutCalendar: React.FC<Props> = (props: Props) => {
         }} 
         dateFullCellRender={customCell}
       />
+      <WorkoutForm onFinish={(e:any) => props.onFinish(e, curValue)}/>
     </div>
   );
 }

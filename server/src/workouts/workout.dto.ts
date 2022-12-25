@@ -8,5 +8,11 @@ export class WorkoutDto{
   @IsNotEmpty()
   start_date: string;
 
-  message: string;
+  breakfast: boolean;
+
+  lunch: boolean;
+
+  dinner: boolean;
+
+  workout: boolean;
 }

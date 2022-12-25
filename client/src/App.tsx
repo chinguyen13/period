@@ -10,17 +10,18 @@ import WorkoutPage from './components/calendar/workout/workoutPage';
 function App() {
   const Content = Layout.Content;
   return (
-      <Layout>
-      <HeaderComponent/>
-      <Content style={{ minHeight: 'calc(100vh - 128px)'}}>
-        <Router>
-          <Routes>    
-            <Route path="" element={<PeriodPage />}/>
-            <Route path="/workout" element={<WorkoutPage />}/>
-          </Routes>
-        </Router>
-      </Content>
-      <FooterComponent/>
+    <Layout>
+      <Router>
+        <HeaderComponent/>
+        <Content style={{ minHeight: 'calc(100vh - 128px)'}}>
+
+            <Routes>    
+              <Route path="" element={<PeriodPage />}/>
+              <Route path="/workout" element={<WorkoutPage />}/>
+            </Routes>
+        </Content>
+        <FooterComponent/>
+      </Router>
     </Layout>
     
   );

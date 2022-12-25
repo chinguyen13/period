@@ -9,6 +9,15 @@ export class WorkoutEntity{
   start_date: string;
 
   @Column()
-  message: string;
+  breakfast: boolean;
+
+  @Column()
+  lunch: boolean;
+
+  @Column()
+  dinner: boolean;
+
+  @Column()
+  workout: boolean;
 
 }
